@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZA Reward Spin</title>
+
+    <!-- Content Locker -->
+    <script type="text/javascript">
+        var rxmoS_vUe_Cfwrhc = {
+            "it": 4624965,
+            "key": "87874"
+        };
+    </script>
+
+    <script src="https://d1g1lhd4vferpn.cloudfront.net/4e43668.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8B0000, #FF0000, #B22222);
+            color: #fff;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #00000030;
+            border-radius: 15px;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+
+        p {
+            color: #ffecec;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 20px auto;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            z-index: 2;
+        }
+
+        canvas {
+            border-radius: 50%;
+            border: 6px solid #fff;
+            transition: 3s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        #result {
+            display: none;
+            animation: fade 0.4s ease;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fake {
+            font-size: 13px;
+            color: #fff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- SPIN -->
+        <div id="spinSection">
+
+            <h1>🎁 South Africa Reward Draw</h1>
+
+            <p>
+                Spin the wheel for a chance to win today 🇿🇦
+            </p>
+
+            <div class="wheel-container">
+
+                <div class="pointer">▼</div>
+
+                <canvas
+                    id="wheelCanvas"
+                    width="280"
+                    height="280">
+                </canvas>
+
+            </div>
+
+            <button
+                class="btn"
+                type="button"
+                onclick="spin()">
+                SPIN NOW
+            </button>
+
+            <div class="fake">
+                🔥 63 people in South Africa won rewards today
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div id="result">
+
+            <h1>🎉 Congratulations!</h1>
+
+            <p>
+                You won <b id="rewardText"></b>
+            </p>
+
+            <!-- Locker -->
+            <button
+                class="btn"
+                type="button"
+                onclick="_iD()">
+                Unlock Reward
+            </button>
+
+            <!-- Smart Link -->
+            <button
+                class="btn"
+                type="button"
+                onclick="go()">
+                Claim Now
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* Smart Link */
+        const CPA_LINK =
+            "https://app.hawktrk.com/sl?id=6a2050db46d3cf0d62f32aa4&pid=2&sub2=u789408&sub6=s2smartLink&sub5=s1SUBID1HERE";
+
+
+        /* Wheel Rewards */
+        const rewards = [
+            "R0",
+            "R50",
+            "Bonus",
+            "R100",
+            "R250",
+            "iphone 17 pro"
+        ];
+
+
+        /* Wheel Colors */
+        const colors = [
+            "#ff4d4d",
+            "#00ffcc",
+            "#ffcc00",
+            "#00aaff",
+            "#ff66cc",
+            "#66ff66"
+        ];
+
+
+        const canvas =
+            document.getElementById("wheelCanvas");
+
+        const ctx =
+            canvas.getContext("2d");
+
+
+        const slices =
+            rewards.length;
+
+        const angle =
+            2 * Math.PI / slices;
+
+
+        /* Draw Wheel */
+        function drawWheel() {
+
+            for (let i = 0; i < slices; i++) {
+
+                ctx.beginPath();
+
+                ctx.moveTo(140, 140);
+
+                ctx.arc(
+                    140,
+                    140,
+                    140,
+                    i * angle,
+                    (i + 1) * angle
+                );
+
+                ctx.fillStyle = colors[i];
+
+                ctx.fill();
+
+
+                ctx.save();
+
+                ctx.translate(140, 140);
+
+                ctx.rotate(
+                    i * angle + angle / 2
+                );
+
+                ctx.fillStyle = "#000";
+
+                ctx.font = "bold 14px Arial";
+
+                ctx.fillText(
+                    rewards[i],
+                    60,
+                    5
+                );
+
+                ctx.restore();
+            }
+        }
+
+
+        drawWheel();
+
+
+        let spun = false;
+
+
+        /* Spin */
+        function spin() {
+
+            if (spun) {
+                return;
+            }
+
+            spun = true;
+
+
+            const wheel =
+                document.getElementById("wheelCanvas");
+
+
+            /* Random reward */
+            const targetIndex =
+                Math.floor(
+                    Math.random() * rewards.length
+                );
+
+
+            /*
+             * 3600 = 10 full rotations
+             * ثم نضيف مكان الجائزة المختارة
+             */
+            const deg =
+                3600 +
+                (targetIndex * (360 / slices));
+
+
+            wheel.style.transform =
+                "rotate(" + deg + "deg)";
+
+
+            setTimeout(function () {
+
+                document.getElementById(
+                    "spinSection"
+                ).style.display = "none";
+
+
+                document.getElementById(
+                    "result"
+                ).style.display = "block";
+
+
+                /* Show selected reward */
+                document.getElementById(
+                    "rewardText"
+                ).textContent =
+                    rewards[targetIndex];
+
+
+            }, 3000);
+
+        }
+
+
+        /* Smart Link */
+        function go() {
+
+            window.location.href =
+                CPA_LINK;
+
+        }
+
+    </script>
+
+</body>
+</html>
